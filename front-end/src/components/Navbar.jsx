@@ -1,8 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const auth = localStorage.getItem("user");
+  const navigate = useNavigate();
+  const logout = () => {
+    // local storage is how we track if someone is logged in or not
+    // ...so clearing it would make it easy for us to have someone
+    // ..."log out"
+    localStorage.clear(); 
+    navigate('/signup');
+  };
   return (
     <div>
       <ul className="navbar-ul">
@@ -19,7 +27,7 @@ const Navbar = () => {
           <Link to="/profile">Profile</Link>
         </li>
         <li>
-          {auth ? <Link to="/logout">Logout</Link>
+          {auth ? <Link onClick={logout} to="/signup">Logout</Link>
            : <Link to="/signup">Sign Up</Link>
           }
         </li>
