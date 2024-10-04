@@ -1,0 +1,27 @@
+[
+    {
+      "_id": { "$oid": "6170377bc2708211fe2e7c28" },
+      "name": "maxx",
+      "price": 450,
+      "brand": "LG",
+      "category": "mobile",
+      "__v": 0
+    },
+    {
+      "_id": { "$oid": "61703799c2708211fe2e7c2c" },
+      "name": "m 40 pro",
+      "price": 500,
+      "brand": "samsung",
+      "category": "mobile",
+      "__v": 0
+    },
+    {
+      "_id": { "$oid": "617183adc4ed8fd081ec957f" },
+      "name": "ulo",
+      "price": 430,
+      "brand": "vivo",
+      "category": "mobile",
+      "__v": 0
+    }
+  ]
+  
