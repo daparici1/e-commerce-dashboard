@@ -1,9 +1,11 @@
 const express = require("express"); // imports express library
+const cors = require("cors");
 require("./database/config");
 const User = require("./database/User");
 const app = express(); // creating instance of express app
 
 app.use(express.json());
+app.use(cors());
 
 // api for registration
 // reference notion to understand how all of this works
