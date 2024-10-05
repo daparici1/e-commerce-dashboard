@@ -19,7 +19,7 @@ app.post("/register", async (req, resp) => {
 
 // LOGIN API
 app.post("/login", async (req, resp) => {
-  // conditional for check if the user inputs both email and password, 
+  // conditional for check if the user inputs both email and password,
   // if only the email is inserted, we do not want to return anything
   if (req.body.password && req.body.email) {
     let user = await User.findOne(req.body).select("-password");
@@ -29,9 +29,8 @@ app.post("/login", async (req, resp) => {
     } else {
       resp.send({ result: "No user found" });
     }
-  }
-  else {
-    resp.send({ result: "No user found "});
+  } else {
+    resp.send({ result: "No user found " });
   }
   // notion page 14
 });
