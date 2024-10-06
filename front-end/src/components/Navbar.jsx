@@ -13,38 +13,21 @@ const Navbar = () => {
   };
   return (
     <div>
-      <ul className="navbar-ul">
-        <li>
-          <Link to="/">Products</Link>
-        </li>
-        <li>
-          <Link to="/add">Add Products</Link>
-        </li>
-        <li>
-          <Link to="/update">Update Products</Link>
-        </li>
-        <li>
-          <Link to="/profile">Profile</Link>
-        </li>
-        {/* ternary operator fixes issue with login still showing up on navbar after user
-        has logged in */}
-        {auth ? (
-          <li>
-            <Link onClick={logout} to="/signup">
-              Logout
-            </Link>
-          </li>
-        ) : (
-          <>
-            <li>
-              <Link to="/signup">Sign Up</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </>
-        )}
-      </ul>
+      {
+        auth ?
+          <ul className="navbar-ul">
+            <li><Link to="/">Products</Link></li>
+            <li><Link to="/add">Add Products</Link></li>
+            <li><Link to="/update">Update Products</Link></li>
+            <li><Link to="/profile">Profile</Link></li>
+            <li><Link onClick={logout} to="/signup">Logout ({ JSON.parse(auth).name })</Link></li>
+          </ul>
+        :
+          <ul className="navbar-ul navbar-right">
+            <li><Link to="/signup">Sign Up</Link></li>
+            <li><Link to="/login">Login</Link></li>
+          </ul>
+      }
     </div>
   );
 };
