@@ -2,6 +2,7 @@ const express = require("express"); // imports express library
 const cors = require("cors");
 require("./database/config");
 const User = require("./database/User");
+const Product = require("./database/Product");
 const app = express(); // creating instance of express app
 
 app.use(express.json());
@@ -33,6 +34,13 @@ app.post("/login", async (req, resp) => {
     resp.send({ result: "No user found " });
   }
   // notion page 14
+});
+
+// ADD PRODUCT API
+app.post("/add-product", async (req, resp) => {
+  let product = new Product(req.body);
+  let result = await product.save();
+  resp.send(result);
 });
 
 app.listen(5000); // localhost 5000
