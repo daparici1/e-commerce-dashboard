@@ -2,10 +2,11 @@ import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Signup from "./components/Signup";
+import Signup from "./components/SignUp";
 import PrivateNavElements from "./components/PrivateNavElements";
-import Login from './components/Login';
-import AddProduct from "./components/Addproduct";
+import Login from "./components/Login";
+import AddProduct from "./components/AddProduct";
+import ViewProducts from "./components/ViewProducts";
 
 function App() {
   return (
@@ -14,8 +15,10 @@ function App() {
         <Navbar />
         <Routes>
           <Route element={<PrivateNavElements />}>
-            // Routes connected to Navbar.js
-            <Route path="/" element={<h1>Product Component</h1>} />
+            {
+              // Routes connected to Navbar.js
+            }
+            <Route path="/" element={<ViewProducts />} />
             <Route path="/add" element={<AddProduct />} />
             <Route path="/update" element={<h1>Update Product Component</h1>} />
             <Route path="/logout" element={<h1>Logout Component</h1>} />
@@ -24,7 +27,6 @@ function App() {
 
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-
         </Routes>
       </BrowserRouter>
     </div>

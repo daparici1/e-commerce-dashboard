@@ -43,7 +43,7 @@ app.post("/add-product", async (req, resp) => {
   resp.send(result);
 });
 
-// PRODUCT LIST API
+// VIEW PRODUCTS API
 app.get("/products", async (req, resp) => {
   const products = await Product.find();
   if (products.length > 0) {
