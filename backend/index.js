@@ -54,14 +54,14 @@ app.post("/login", async (req, resp) => {
 });
 
 // ADD PRODUCT API
-app.post("/add-product", async (req, resp) => {
+app.post("/add-product", verifyToken, async (req, resp) => {
   let product = new Product(req.body);
   let result = await product.save();
   resp.send(result);
 });
 
 // VIEW PRODUCTS API
-app.get("/products", async (req, resp) => {
+app.get("/products", verifyToken, async (req, resp) => {
   const products = await Product.find();
   if (products.length > 0) {
     resp.send(products);
@@ -71,13 +71,13 @@ app.get("/products", async (req, resp) => {
 });
 
 // DELETE PRODUCT API
-app.delete("/product/:id", async (req, resp) => {
+app.delete("/product/:id", verifyToken, async (req, resp) => {
   let result = await Product.deleteOne({ _id: req.params.id });
   resp.send(result);
 }); // completely unsure why this comma fixes my issue
 
 // GET PRODUCT API (USE TO UPDATE)
-app.get("/product/:id", async (req, resp) => {
+app.get("/product/:id", verifyToken, async (req, resp) => {
   let result = await Product.findOne({ _id: req.params.id });
   // check ifFound
   if (result) {
@@ -88,7 +88,7 @@ app.get("/product/:id", async (req, resp) => {
 });
 
 // UPDATE PRODUCT API
-app.put("/product/:id", async (req, resp) => {
+app.put("/product/:id", verifyToken, async (req, resp) => {
   let result = await Product.updateOne(
     { _id: req.params.id },
     { $set: req.body }
@@ -97,7 +97,7 @@ app.put("/product/:id", async (req, resp) => {
 });
 
 // SEARCH PRODUCT API
-app.get("/search/:key", async (req, resp) => {
+app.get("/search/:key", verifyToken, async (req, resp) => {
   let result = await Product.find({
     $or: [
       {
@@ -114,5 +114,23 @@ app.get("/search/:key", async (req, resp) => {
   });
   resp.send(result);
 });
+
+// verify JWT auth token
+function verifyToken(req, resp, next) {
+  console.warn(req.headers["authorization"]);
+  let token = req.headers["authorization"];
+  if (token) {
+    token = token.split(" ")[1];
+    Jwt.verify(token, jwtKey, (err) => {
+      if (err) {
+        resp.status(403).send({ result: "Please provide a valid token" });
+      } else {
+        next();
+      }
+    });
+  } else {
+    resp.status(403).send({ result: "Please provide a token" });
+  }
+}
 
 app.listen(5000); // localhost 5000
