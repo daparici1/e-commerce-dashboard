@@ -3,6 +3,10 @@ const cors = require("cors");
 require("./database/config");
 const User = require("./database/User");
 const Product = require("./database/Product");
+
+const Jwt = require("jsonwebtoken"); // creating instance of JWT
+const jwtKey = "e-comm";
+
 const app = express(); // creating instance of express app
 
 app.use(express.json());
@@ -15,7 +19,14 @@ app.post("/register", async (req, resp) => {
   let result = await user.save();
   result = result.toObject();
   delete result.password; // make sure password doesnt pop up in our output
-  resp.send(result);
+  Jwt.sign({ result }, jwtKey, { expiresIn: "2h" }, (err, token) => {
+    if (err) {
+      resp.send({
+        result: "Something went wrong, please try again after sometime",
+      });
+    }
+    resp.send({ result, auth: token });
+  });
 });
 
 // LOGIN API
@@ -25,8 +36,14 @@ app.post("/login", async (req, resp) => {
   if (req.body.password && req.body.email) {
     let user = await User.findOne(req.body).select("-password");
     if (user) {
-      // conditional for checking if the user exists
-      resp.send(user);
+      Jwt.sign({ user }, jwtKey, { expiresIn: "2h" }, (err, token) => {
+        if (err) {
+          resp.send({
+            result: "Something went wrong, please try again after sometime",
+          });
+        }
+        resp.send({ user, auth: token });
+      });
     } else {
       resp.send({ result: "No user found" });
     }
@@ -85,13 +102,13 @@ app.get("/search/:key", async (req, resp) => {
     $or: [
       {
         // $options: 'i' makes it case insensitive
-        name: { $regex: req.params.key, $options: 'i' }, // regex: regular expressions - used to match sequences when you begin to search (say i wanted to search for apple i could just type a)
+        name: { $regex: req.params.key, $options: "i" }, // regex: regular expressions - used to match sequences when you begin to search (say i wanted to search for apple i could just type a)
       },
       {
-        company: { $regex: req.params.key, $options: 'i' },
+        company: { $regex: req.params.key, $options: "i" },
       },
       {
-        category: { $regex: req.params.key, $options: 'i' },
+        category: { $regex: req.params.key, $options: "i" },
       },
     ],
   });
