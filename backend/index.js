@@ -53,7 +53,7 @@ app.get("/products", async (req, resp) => {
   }
 });
 
-// REMOVE PRODUCT API
+// DELETE PRODUCT API
 app.delete("/product/:id", async (req, resp) => {
   let result = await Product.deleteOne({_id:req.params.id});
   resp.send(result);
