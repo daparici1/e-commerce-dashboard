@@ -43,4 +43,14 @@ app.post("/add-product", async (req, resp) => {
   resp.send(result);
 });
 
+// PRODUCT LIST API
+app.get("/products", async (req, resp) => {
+  const products = await Product.find();
+  if (products.length > 0) {
+    resp.send(products);
+  } else {
+    resp.send({ result: "No product found" });
+  }
+});
+
 app.listen(5000); // localhost 5000
