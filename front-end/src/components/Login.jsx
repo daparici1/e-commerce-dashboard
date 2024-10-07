@@ -6,10 +6,10 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() =>{
-    const auth = localStorage.getItem('user');
+  useEffect(() => {
+    const auth = localStorage.getItem("user");
     if (auth) {
-      navigate('/'); // REDACTS NAVIGATION, USER WAS STILL ABLE TO DO /login IN ADDRESS BAR
+      navigate("/"); // REDACTS NAVIGATION, USER WAS STILL ABLE TO DO /login IN ADDRESS BAR
     }
   }, []);
 
@@ -25,8 +25,9 @@ const Login = () => {
     console.warn(result);
 
     // we can see "no user found" in inspect, but the user cant, we can alert them
-    if (result.name) {
-      localStorage.setItem("user", JSON.stringify(result));
+    if (result.auth) {
+      localStorage.setItem("user", JSON.stringify(result.user));
+      localStorage.setItem("token", JSON.stringify(result.auth));
       navigate("/");
     } else {
       alert("Please enter correct details");
