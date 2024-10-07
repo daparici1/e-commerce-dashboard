@@ -55,8 +55,19 @@ app.get("/products", async (req, resp) => {
 
 // DELETE PRODUCT API
 app.delete("/product/:id", async (req, resp) => {
-  let result = await Product.deleteOne({_id:req.params.id});
+  let result = await Product.deleteOne({ _id: req.params.id });
   resp.send(result);
+}); // completely unsure why this comma fixes my issue
+
+// GET PRODUCT API (USE TO UPDATE)
+app.get("/product/:id", async (req, resp) => {
+  let result = await Product.findOne({ _id: req.params.id });
+  // check ifFound
+  if (result) {
+    resp.send(result);
+  } else {
+    resp.send({ result: "no product found" });
+  }
 });
 
 app.listen(5000); // localhost 5000
