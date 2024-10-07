@@ -79,4 +79,23 @@ app.put("/product/:id", async (req, resp) => {
   resp.send(result);
 });
 
+// SEARCH PRODUCT API
+app.get("/search/:key", async (req, resp) => {
+  let result = await Product.find({
+    $or: [
+      {
+        // $options: 'i' makes it case insensitive
+        name: { $regex: req.params.key, $options: 'i' }, // regex: regular expressions - used to match sequences when you begin to search (say i wanted to search for apple i could just type a)
+      },
+      {
+        company: { $regex: req.params.key, $options: 'i' },
+      },
+      {
+        category: { $regex: req.params.key, $options: 'i' },
+      },
+    ],
+  });
+  resp.send(result);
+});
+
 app.listen(5000); // localhost 5000
