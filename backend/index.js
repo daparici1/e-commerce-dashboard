@@ -53,4 +53,10 @@ app.get("/products", async (req, resp) => {
   }
 });
 
+// REMOVE PRODUCT API
+app.delete("/product/:id", async (req, resp) => {
+  let result = await Product.deleteOne({_id:req.params.id});
+  resp.send(result);
+});
+
 app.listen(5000); // localhost 5000
