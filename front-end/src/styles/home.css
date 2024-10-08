@@ -1,0 +1,92 @@
+.home-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    padding: 0 50px;
+    background-color: #1e1e3f;
+    /*
+    Dark Slate: #1e1e3f (lighter than the original dark purple)
+    Muted Purple: #3d3a7f (still maintains the purple tone but is softer)
+    Neon Twilight: #282a36 (a twilight feel with a slight bluish tint)
+    Midnight Blue: #1f1f46 (dark blue with a subtle glow)
+    */
+    color: #f9f9f9;
+  }
+  
+  .welcome-section {
+    flex: 1;
+    max-width: 50%;
+  }
+  
+  .welcome-section h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #f92aad;
+  }
+  
+  .welcome-section p {
+    font-size: 18px;
+    color: #e1e1ff;
+    margin-top: 20px;
+  }
+  
+  .registration {
+    flex: 1;
+    max-width: 400px;
+    background-color: #2d2a55;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #1ed8f2;
+  }
+  
+  .inputBox {
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #f92aad;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .signupButton {
+    width: 100%;
+    padding: 12px;
+    background-color: #00ff9f;
+    color: #2d2a55;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .signupButton:hover {
+    background-color: #1ed8f2;
+    color: #2d2a55;
+  }
+
+  .loginButton {
+    width: 100%;
+    padding: 12px;
+    background-color: #00ff9f;
+    color: #2d2a55;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .loginButton:hover {
+    background-color: #1ed8f2;
+    color: #2d2a55;
+  }
+  
+  .error-message {
+    color: #f92aad;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
