@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import '../styles/viewproducts.css'
 
 const ViewProducts = () => {
   const [products, setProducts] = useState([]);
@@ -19,7 +20,6 @@ const ViewProducts = () => {
   };
 
   const deleteProduct = async (id) => {
-    console.warn(id);
     let result = await fetch(`http://localhost:5000/product/${id}`, {
       method: "Delete",
       headers: {
@@ -57,29 +57,38 @@ const ViewProducts = () => {
         placeholder="Search Product"
         onChange={searchProduct}
       />
-      <ul>
-        <li>S. No.</li>
-        <li>Name</li>
-        <li>Price</li>
-        <li>Category</li>
-        <li></li>
-      </ul>
-      {products.length > 0 ? (
-        products.map((item, index) => (
-          <ul key={item._id}>
-            <li>{index + 1}</li>
-            <li>{item.name}</li>
-            <li>{item.price}</li>
-            <li>{item.category}</li>
-            <li>
-              <button onClick={() => deleteProduct(item._id)}>Delete</button>
-              <Link to={"/update/" + item._id}>Update</Link>
-            </li>
-          </ul>
-        ))
-      ) : (
-        <h1>No Result Found</h1>
-      )}
+
+      <table>
+        <thead>
+          <tr>
+            <th>S. No.</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.length > 0 ? (
+            products.map((item, index) => (
+              <tr key={item._id}>
+                <td>{index + 1}</td>
+                <td>{item.name}</td>
+                <td>{item.price}</td>
+                <td>{item.category}</td>
+                <td>
+                  <button onClick={() => deleteProduct(item._id)}>Delete</button>
+                  <Link to={"/update/" + item._id}>Update</Link>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5">No Result Found</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };
